@@ -51,7 +51,7 @@ Explore the individual script files and directories to understand their purpose 
 
 Execute the desired script using an appropriate method, such as:
 	./script_name.sh
-Note: Make sure to provide the necessary permissions to execute the script, if required.
+Note: Make sure to provide the necessary permissions to execute the script, if required
 
 ## Contributing
 Contributions to this repository are welcome. If you spot any issues, have suggestions, or would like to add improvements or additional solutions, please create a pull request. Your contributions can help enhance the learning experience for others.
