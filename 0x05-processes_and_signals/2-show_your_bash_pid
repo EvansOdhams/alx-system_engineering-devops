@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+# Ignore SC2009 error from shellcheck
+# shellcheck disable=SC2009
+
+# Display lines containing the word "bash" and filter the Bash process line
+ps aux | grep bash | grep -v grep
