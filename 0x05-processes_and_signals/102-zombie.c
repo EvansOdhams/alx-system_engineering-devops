@@ -3,15 +3,25 @@
 #include <sys/types.h>
 #include <unistd.h>
 
+/**
+* infinite_while - Runs an infinite loop
+*
+* Return: Always returns 0
+*/
 int infinite_while(void)
 {
 while (1)
 {
 sleep(1);
 }
-return 0;
+return (0);
 }
 
+/**
+* main - Entry point
+*
+* Return: Always returns 0
+*/
 int main(void)
 {
 pid_t child_pid;
@@ -34,5 +44,5 @@ exit(EXIT_SUCCESS);
 
 infinite_while();
 
-return 0;
+return (0);
 }
