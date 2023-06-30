@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
-
-# Ignore SC2009 error from shellcheck
+# This script extends previous exercise command process
+# You cannot use pgrep
 # shellcheck disable=SC2009
 
-# Display lines containing the word "bash" and filter the Bash process line
-ps aux | grep bash | grep -v grep
+./1-list_your_processes | grep "bash"
