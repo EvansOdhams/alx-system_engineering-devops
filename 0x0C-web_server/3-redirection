@@ -1,16 +1,40 @@
 #!/usr/bin/env bash
-# Installs nginx web server
 
-apt-get update
-apt-get install -y nginx
-echo "Holberton School" > /etc/nginx/html/index.html
-echo "server {
-    listen 80;
-    listen [::]:80 default_server;
-    root   /etc/nginx/html;
-    index  index.html;
-    location /redirect_me {
-        return 301 https://twitter.com/Emmanue17280546;
-    }
-}" > /etc/nginx/sites-available/default
-service nginx restart
+# Install nginx if not already installed
+sudo apt-get update
+sudo apt-get install nginx -y
+
+# Check if Nginx service is running
+if [ -x /usr/sbin/nginx ]; then
+    # Remove the default Nginx configuration
+    sudo rm /etc/nginx/sites-available/default
+    sudo rm /etc/nginx/sites-enabled/default
+
+    # Create a new Nginx configuration file
+    sudo touch /etc/nginx/sites-available/default
+    echo "server {
+        listen 80;
+        root /var/www/html;
+        index index.html;
+
+        location /redirect_me {
+            return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
+        }
+
+        location / {
+            try_files \$uri \$uri/ =404;
+        }
+    }" | sudo tee /etc/nginx/sites-available/default
+
+    # Create a symbolic link to enable the new configuration
+    sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
+
+    # Test Nginx configuration and reload
+    sudo nginx -t
+    sudo service nginx reload
+
+    # Print success message
+    echo "Nginx configured for redirection successfully!"
+else
+    echo "Nginx installation failed."
+fi
