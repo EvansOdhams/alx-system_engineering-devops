@@ -1,20 +1,37 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-# Update the package list
-apt update
+# Update package list and install nginx with -y flag
+sudo apt-get update
+sudo apt-get install nginx -y
 
-# Install Nginx
-apt install -y nginx
+# Check if Nginx service is running
+if [ -x /usr/sbin/nginx ]; then
+    # Remove the default Nginx configuration
+    sudo rm /etc/nginx/sites-available/default
+    sudo rm /etc/nginx/sites-enabled/default
 
-# Create a simple HTML file
-echo "<html>
-<head>
-<title>Hello World!</title>
-</head>
-<body>
-<h1>Hello World!</h1>
-</body>
-</html>" > /var/www/html/index.html
+    # Create a new Nginx configuration file
+    sudo touch /etc/nginx/sites-available/default
+    echo "server {
+        listen 80;
+        root /var/www/html;
+        index index.html;
 
-# Restart Nginx
-service nginx restart
+        location / {
+            add_header Content-Type text/html;
+            echo 'Hello World!';
+        }
+    }" | sudo tee /etc/nginx/sites-available/default
+
+    # Create a symbolic link to enable the new configuration
+    sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
+
+    # Test Nginx configuration and reload
+    sudo nginx -t
+    sudo service nginx reload
+
+    # Print success message
+    echo "Nginx installed and configured successfully!"
+else
+    echo "Nginx installation failed."
+fi
