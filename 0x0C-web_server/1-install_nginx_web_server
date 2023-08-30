@@ -1,11 +1,20 @@
 #!/bin/bash
 
-# Install Nginx
-apt-get update
-apt-get install -y nginx
+# Update the package list
+apt update
 
-# Configure Nginx
-echo 'Hello World!' > /var/www/html/index.nginx-debian.html
+# Install Nginx
+apt install -y nginx
+
+# Create a simple HTML file
+echo "<html>
+<head>
+<title>Hello World!</title>
+</head>
+<body>
+<h1>Hello World!</h1>
+</body>
+</html>" > /var/www/html/index.html
 
 # Restart Nginx
-nginx -s reload
+service nginx restart
