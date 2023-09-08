@@ -9,14 +9,17 @@ subdomain="$2"
 # Check if the subdomain is provided
 if [ -z "$subdomain" ]; then
   # If not, get the list of subdomains
-  subdomains="www lb-01 web-01 web-02"
+  subdomains="www lb-01 web-02"
 fi
 
 # Loop over the subdomains
 for subdomain in $subdomains; do
+  # Remove the dot from the beginning of the subdomain
+  subdomain_without_dot=${subdomain:1}
+
   # Get the record type and destination IP
-  record_type=$(dig "$domain.$subdomain" | awk -F' ' '{print $4}')
-  destination_ip=$(dig "$domain.$subdomain" | awk -F' ' '{print $5}')
+  record_type=$(dig "$domain.$subdomain_without_dot" | awk -F' ' '{print $4}')
+  destination_ip=$(dig "$domain.$subdomain_without_dot" | awk -F' ' '{print $5}')
 
   # Print the information about the subdomain
   echo "The subdomain $subdomain is a $record_type record and points to $destination_ip"
