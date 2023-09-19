@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# Run Nginx as Ubuntu user (for init system)
+
+# Modify the Nginx configuration to run as the "ubuntu" user
+sed -i "s/#user www-data/user ubuntu/" /etc/nginx/nginx.conf
+
+# Change the default Nginx port from 80 to 8080
+sed -i "s/80/8080/g" /etc/nginx/sites-available/default
+
+# Ensure the modified configuration file has the correct permissions
+chmod 644 /etc/nginx/nginx.conf
+
+# Stop Apache2 if it's running (assuming you want to stop it)
+service apache2 stop
+
+# Restart Nginx service with the new configuration
+service nginx restart
