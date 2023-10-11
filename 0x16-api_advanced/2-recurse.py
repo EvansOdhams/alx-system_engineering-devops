@@ -28,7 +28,6 @@ def recurse(subreddit, hot_list=[], after=None):
     else:
         return hot_list
 
-# Example usage
 if __name__ == '__main__':
     subreddit = "programming"
     result = recurse(subreddit)
